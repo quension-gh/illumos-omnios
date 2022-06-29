@@ -13,11 +13,7 @@ are included in the footer.
 
 =======================================================================
 
-system/microcode/intel
-    Update Intel microcode to 20220419 release
-
-system/zones/brand/lx
-    sendfile returns EINVAL at EOF when it should return 0
+## No pending updates
 
 =======================================================================
 
