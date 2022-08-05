@@ -13,6 +13,8 @@
 # Copyright (c) 2012, 2016 by Delphix. All rights reserved.
 # Copyright 2020 Joyent, Inc.
 # Copyright 2021 Tintri by DDN, Inc. All rights reserved.
+# Copyright 2021 OmniOS Community Edition (OmniOSce) Association.
+# Copyright 2023 Oxide Computer Company
 #
 
 SUBDIRS_i386 = i386 imc
@@ -27,6 +29,7 @@ SUBDIRS =       \
 		regression \
 		sdevfs \
 		secflags \
+		signalfd \
 		sigqueue \
 		sockfs \
 		spoof-ras \
