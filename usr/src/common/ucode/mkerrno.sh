@@ -62,7 +62,7 @@ static int _ucode_nerrno = sizeof (_ucode_errstr) / sizeof (_ucode_errstr[0]);\n
 const char *
 ucode_strerror(ucode_errno_t errno)
 {
-	return (errno < 0 || errno >= _ucode_nerrno ?
+	return (errno >= _ucode_nerrno ?
 	     gettext(\"unknown error\") :
 	     gettext(_ucode_errstr[errno].uce_msg));
 }
@@ -70,7 +70,7 @@ ucode_strerror(ucode_errno_t errno)
 const char *
 ucode_errname(ucode_errno_t errno)
 {
-	return (errno < 0 || errno >= _ucode_nerrno ? NULL :
+	return (errno >= _ucode_nerrno ? NULL :
 	     gettext(_ucode_errstr[errno].uce_name));
 }"
 
