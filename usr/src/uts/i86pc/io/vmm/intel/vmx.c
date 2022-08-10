@@ -41,6 +41,7 @@
  * Copyright 2015 Pluribus Networks Inc.
  * Copyright 2018 Joyent, Inc.
  * Copyright 2021 Oxide Computer Company
+ * Copyright 2022 MNX Cloud, Inc.
  */
 
 #include <sys/cdefs.h>
@@ -177,9 +178,6 @@ static uint64_t cr0_ones_mask, cr0_zeros_mask;
 static uint64_t cr4_ones_mask, cr4_zeros_mask;
 
 static int vmx_initialized;
-
-/* Do not flush RSB upon vmexit */
-static int no_flush_rsb;
 
 /*
  * Optional capabilities
@@ -804,12 +802,7 @@ vmx_vminit(struct vm *vm)
 		    rdmsr(MSR_SYSENTER_EIP_MSR));
 
 		/* instruction pointer */
-		if (no_flush_rsb) {
-			vmcs_write(VMCS_HOST_RIP, (uint64_t)vmx_exit_guest);
-		} else {
-			vmcs_write(VMCS_HOST_RIP,
-			    (uint64_t)vmx_exit_guest_flush_rsb);
-		}
+		vmcs_write(VMCS_HOST_RIP, (uint64_t)vmx_exit_guest);
 
 		/* link pointer */
 		vmcs_write(VMCS_LINK_POINTER, ~0);
