@@ -41,7 +41,7 @@ include	../Makefile.ctf
 POFILE = ucodeadm_all.po
 POFILES = $(PROG_OBJS:%.o=%.po)
 
-CSTD = $(GNU_C99)
+CSTD = $(CSTD_GNU99)
 CPPFLAGS = -I../../common -I../../uts/common
 CFLAGS	+= $(CCVERBOSE)
 LDLIBS += -lgen
