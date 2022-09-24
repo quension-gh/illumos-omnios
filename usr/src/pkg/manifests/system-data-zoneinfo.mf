@@ -17,7 +17,7 @@
 #
 
 set name=pkg.fmri \
-    value=pkg:/system/data/zoneinfo@2022.2,$(PKGVERS_BUILTON)-$(PKGVERS_BRANCH)
+    value=pkg:/system/data/zoneinfo@2022.4,$(PKGVERS_BUILTON)-$(PKGVERS_BRANCH)
 set name=pkg.description value="timezone information"
 set name=pkg.summary value="Timezone Information"
 set name=info.classification value=org.opensolaris.category.2008:System/Core
@@ -36,8 +36,6 @@ dir path=usr/share/lib/zoneinfo/America/Kentucky
 dir path=usr/share/lib/zoneinfo/America/North_Dakota
 dir path=usr/share/lib/zoneinfo/Antarctica
 dir path=usr/share/lib/zoneinfo/Arctic
-dir path=usr/share/lib/zoneinfo/Arctic
-dir path=usr/share/lib/zoneinfo/Asia
 dir path=usr/share/lib/zoneinfo/Asia
 dir path=usr/share/lib/zoneinfo/Atlantic
 dir path=usr/share/lib/zoneinfo/Australia
@@ -46,8 +44,6 @@ dir path=usr/share/lib/zoneinfo/Canada
 dir path=usr/share/lib/zoneinfo/Chile
 dir path=usr/share/lib/zoneinfo/Etc
 dir path=usr/share/lib/zoneinfo/Europe
-dir path=usr/share/lib/zoneinfo/Europe
-dir path=usr/share/lib/zoneinfo/Indian
 dir path=usr/share/lib/zoneinfo/Indian
 dir path=usr/share/lib/zoneinfo/Mexico
 dir path=usr/share/lib/zoneinfo/Pacific
@@ -364,12 +360,10 @@ file path=usr/share/lib/zoneinfo/Europe/Sofia
 file path=usr/share/lib/zoneinfo/Europe/Tallinn
 file path=usr/share/lib/zoneinfo/Europe/Tirane
 file path=usr/share/lib/zoneinfo/Europe/Ulyanovsk
-file path=usr/share/lib/zoneinfo/Europe/Uzhgorod
 file path=usr/share/lib/zoneinfo/Europe/Vienna
 file path=usr/share/lib/zoneinfo/Europe/Vilnius
 file path=usr/share/lib/zoneinfo/Europe/Volgograd
 file path=usr/share/lib/zoneinfo/Europe/Warsaw
-file path=usr/share/lib/zoneinfo/Europe/Zaporozhye
 file path=usr/share/lib/zoneinfo/Europe/Zurich
 file path=usr/share/lib/zoneinfo/Factory
 file path=usr/share/lib/zoneinfo/HST
@@ -615,9 +609,11 @@ hardlink path=usr/share/lib/zoneinfo/Europe/Sarajevo target=Belgrade
 hardlink path=usr/share/lib/zoneinfo/Europe/Skopje target=Belgrade
 hardlink path=usr/share/lib/zoneinfo/Europe/Stockholm target=Berlin
 hardlink path=usr/share/lib/zoneinfo/Europe/Tiraspol target=Chisinau
+hardlink path=usr/share/lib/zoneinfo/Europe/Uzhgorod target=Kyiv
 hardlink path=usr/share/lib/zoneinfo/Europe/Vaduz target=Zurich
 hardlink path=usr/share/lib/zoneinfo/Europe/Vatican target=Rome
 hardlink path=usr/share/lib/zoneinfo/Europe/Zagreb target=Belgrade
+hardlink path=usr/share/lib/zoneinfo/Europe/Zaporozhye target=Kyiv
 hardlink path=usr/share/lib/zoneinfo/GB target=Europe/London
 hardlink path=usr/share/lib/zoneinfo/GB-Eire target=Europe/London
 hardlink path=usr/share/lib/zoneinfo/GMT target=Etc/GMT
