@@ -129,4 +129,7 @@ post = ksensor_fini
 tests = ['stackalign.32', 'stackalign.64']
 
 [/opt/os-tests/tests/regression]
-tests = ['illumos-15031']
+tests = [
+	'illumos-15031',
+	'illumos-15036'
+	]
