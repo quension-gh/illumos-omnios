@@ -1651,7 +1651,7 @@ pcie_capture_speeds(dev_info_t *dip)
 	pcie_bus_t	*bus_p = PCIE_DIP2BUS(dip);
 	dev_info_t	*rcdip;
 
-	if (!PCIE_IS_PCIE(bus_p))
+	if (!PCIE_IS_PCIE(bus_p) || bus_p->bus_pcie_off == 0)
 		return;
 
 	rcdip = pcie_get_rc_dip(dip);
@@ -3587,6 +3587,9 @@ pcie_fabric_feature_scan(dev_info_t *dip, void *arg)
 	}
 	rcdip = pcie_get_rc_dip(dip);
 
+	if (bus_p->bus_pcie_off == 0)
+		return (DDI_WALK_PRUNECHILD);
+
 	/*
 	 * First, start by determining what the device's tagging and max packet
 	 * size is. All PCIe devices will always have the 8-bit tag information
@@ -3693,6 +3696,9 @@ pcie_fabric_feature_set(dev_info_t *dip, void *arg)
 		return (DDI_WALK_CONTINUE);
 	}
 	rcdip = pcie_get_rc_dip(dip);
+
+	if (bus_p->bus_pcie_off == 0)
+		return (DDI_WALK_PRUNECHILD);
 
 	devcap = pci_cfgacc_get32(rcdip, bus_p->bus_bdf, bus_p->bus_pcie_off +
 	    PCIE_DEVCAP);
