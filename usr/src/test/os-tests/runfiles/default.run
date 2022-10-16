@@ -136,3 +136,9 @@ tests = ['stackalign.32', 'stackalign.64']
 user = root
 pre = core_prereqs
 tests = ['coretests']
+
+[/opt/os-tests/tests/regression]
+tests = [
+	'illumos-15031',
+	'illumos-15036'
+	]
