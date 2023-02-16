@@ -40,6 +40,8 @@ dir path=opt/os-tests/tests/pf_key
 dir path=opt/os-tests/tests/regression
 dir path=opt/os-tests/tests/sdevfs
 dir path=opt/os-tests/tests/secflags
+dir path=opt/os-tests/tests/signalfd
+dir path=opt/os-tests/tests/sigqueue
 dir path=opt/os-tests/tests/sigqueue
 dir path=opt/os-tests/tests/sockfs
 dir path=opt/os-tests/tests/stackalign
@@ -106,11 +108,9 @@ file path=opt/os-tests/tests/secflags/secflags_syscall mode=0555
 file path=opt/os-tests/tests/secflags/secflags_truss mode=0555
 file path=opt/os-tests/tests/secflags/secflags_zonecfg mode=0555
 file path=opt/os-tests/tests/secflags/stacky mode=0555
-dir  path=opt/os-tests/tests/signalfd
 file path=opt/os-tests/tests/signalfd/basic_args mode=0555
 file path=opt/os-tests/tests/signalfd/basic_read mode=0555
 file path=opt/os-tests/tests/signalfd/multipoll mode=0555
-dir  path=opt/os-tests/tests/sigqueue
 file path=opt/os-tests/tests/sigqueue/sigqueue_queue_size mode=0555
 file path=opt/os-tests/tests/sockfs/conn mode=0555
 file path=opt/os-tests/tests/sockfs/dgram mode=0555
