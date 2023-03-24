@@ -14,10 +14,11 @@
 # Copyright (c) 2014 Joyent, Inc. All rights reserved.
 # Copyright 2017 OmniTI Computer Consulting, Inc. All rights reserved.
 # Copyright 2022 OmniOS Community Edition (OmniOSce) Association.
+# Copyright 2023 Oxide Computer Company
 #
 
 set name=pkg.fmri \
-    value=pkg:/system/data/zoneinfo@2022.6,$(PKGVERS_BUILTON)-$(PKGVERS_BRANCH)
+    value=pkg:/system/data/zoneinfo@2023.2,$(PKGVERS_BUILTON)-$(PKGVERS_BRANCH)
 set name=pkg.description value="timezone information"
 set name=pkg.summary value="Timezone Information"
 set name=info.classification value=org.opensolaris.category.2008:System/Core
@@ -100,6 +101,7 @@ file path=usr/share/lib/zoneinfo/America/Caracas
 file path=usr/share/lib/zoneinfo/America/Cayenne
 file path=usr/share/lib/zoneinfo/America/Chicago
 file path=usr/share/lib/zoneinfo/America/Chihuahua
+file path=usr/share/lib/zoneinfo/America/Ciudad_Juarez
 file path=usr/share/lib/zoneinfo/America/Costa_Rica
 file path=usr/share/lib/zoneinfo/America/Cuiaba
 file path=usr/share/lib/zoneinfo/America/Danmarkshavn
@@ -161,7 +163,6 @@ file path=usr/share/lib/zoneinfo/America/North_Dakota/New_Salem
 file path=usr/share/lib/zoneinfo/America/Nuuk
 file path=usr/share/lib/zoneinfo/America/Ojinaga
 file path=usr/share/lib/zoneinfo/America/Panama
-file path=usr/share/lib/zoneinfo/America/Pangnirtung
 file path=usr/share/lib/zoneinfo/America/Paramaribo
 file path=usr/share/lib/zoneinfo/America/Phoenix
 file path=usr/share/lib/zoneinfo/America/Port-au-Prince
@@ -189,7 +190,6 @@ file path=usr/share/lib/zoneinfo/America/Vancouver
 file path=usr/share/lib/zoneinfo/America/Whitehorse
 file path=usr/share/lib/zoneinfo/America/Winnipeg
 file path=usr/share/lib/zoneinfo/America/Yakutat
-file path=usr/share/lib/zoneinfo/America/Yellowknife
 file path=usr/share/lib/zoneinfo/Antarctica/Casey
 file path=usr/share/lib/zoneinfo/Antarctica/Davis
 file path=usr/share/lib/zoneinfo/Antarctica/Macquarie
@@ -490,6 +490,7 @@ hardlink path=usr/share/lib/zoneinfo/America/Montreal target=Toronto
 hardlink path=usr/share/lib/zoneinfo/America/Montserrat target=Puerto_Rico
 hardlink path=usr/share/lib/zoneinfo/America/Nassau target=Toronto
 hardlink path=usr/share/lib/zoneinfo/America/Nipigon target=Toronto
+hardlink path=usr/share/lib/zoneinfo/America/Pangnirtung target=Iqaluit
 hardlink path=usr/share/lib/zoneinfo/America/Port_of_Spain target=Puerto_Rico
 hardlink path=usr/share/lib/zoneinfo/America/Porto_Acre target=Rio_Branco
 hardlink path=usr/share/lib/zoneinfo/America/Rainy_River target=Winnipeg
@@ -504,6 +505,7 @@ hardlink path=usr/share/lib/zoneinfo/America/St_Vincent target=Puerto_Rico
 hardlink path=usr/share/lib/zoneinfo/America/Thunder_Bay target=Toronto
 hardlink path=usr/share/lib/zoneinfo/America/Tortola target=Puerto_Rico
 hardlink path=usr/share/lib/zoneinfo/America/Virgin target=Puerto_Rico
+hardlink path=usr/share/lib/zoneinfo/America/Yellowknife target=Edmonton
 hardlink path=usr/share/lib/zoneinfo/Antarctica/DumontDUrville \
     target=../Pacific/Port_Moresby
 hardlink path=usr/share/lib/zoneinfo/Antarctica/McMurdo \
