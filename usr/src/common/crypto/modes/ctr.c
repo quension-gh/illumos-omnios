@@ -24,6 +24,9 @@
  *
  * Copyright 2019 Joyent, Inc.
  */
+/*
+ * Copyright 2014 by Saso Kiselkov. All rights reserved.
+ */
 
 #ifndef _KERNEL
 #include <strings.h>
@@ -34,10 +37,14 @@
 
 #include <sys/debug.h>
 #include <sys/types.h>
+#define	INLINE_CRYPTO_GET_PTRS
 #include <modes/modes.h>
 #include <sys/crypto/common.h>
 #include <sys/crypto/impl.h>
 #include <sys/byteorder.h>
+#include <sys/cmn_err.h>
+
+boolean_t ctr_fastpath_enabled = B_TRUE;
 
 /*
  * CTR (counter mode) is a stream cipher.  That is, it generates a
@@ -166,7 +173,10 @@ ctr_xor(ctr_ctx_t *ctx, const uint8_t *in, uint8_t *out, size_t outlen,
 int
 ctr_mode_contiguous_blocks(ctr_ctx_t *ctx, char *in, size_t in_length,
     crypto_data_t *out, size_t block_size,
-    int (*cipher)(const void *ks, const uint8_t *pt, uint8_t *ct))
+    int (*cipher)(const void *ks, const uint8_t *pt, uint8_t *ct),
+    void (*xor_block)(const uint8_t *, uint8_t *),
+    int (*cipher_ctr)(const void *ks, const uint8_t *pt, uint8_t *ct,
+    uint64_t len, uint64_t counter[2]))
 {
 	size_t in_remainder = in_length;
 	uint8_t *inp = (uint8_t *)in;
@@ -176,8 +186,33 @@ ctr_mode_contiguous_blocks(ctr_ctx_t *ctx, char *in, size_t in_length,
 	uint8_t *out_data_remainder;
 	size_t out_data_len;
 
-	if (block_size > sizeof (ctx->ctr_keystream))
-		return (CRYPTO_ARGUMENTS_BAD);
+	/*
+	 * CTR encryption/decryption fastpath requirements:
+	 * - fastpath is enabled
+	 * - algorithm-specific acceleration function is available
+	 * - input is block-aligned
+	 * - the counter value won't overflow the lower counter mask
+	 * - output is a single contiguous region and doesn't alias input
+	 */
+	if (ctr_fastpath_enabled && cipher_ctr != NULL &&
+	    ctx->ctr_remainder_len == 0 && (length & (block_size - 1)) == 0 &&
+	    ntohll(ctx->ctr_cb[1]) <= ctx->ctr_lower_mask -
+	    length / block_size && CRYPTO_DATA_IS_SINGLE_BLOCK(out)) {
+		cipher_ctr(ctx->ctr_keysched, (uint8_t *)data,
+		    CRYPTO_DATA_FIRST_BLOCK(out), length, ctx->ctr_cb);
+		out->cd_offset += length;
+		return (CRYPTO_SUCCESS);
+	}
+
+	if (length + ctx->ctr_remainder_len < block_size) {
+		/* accumulate bytes here and return */
+		bcopy(datap,
+		    (uint8_t *)ctx->ctr_remainder + ctx->ctr_remainder_len,
+		    length);
+		ctx->ctr_remainder_len += length;
+		ctx->ctr_copy_to = datap;
+		return (CRYPTO_SUCCESS);
+	}
 
 	if (out == NULL)
 		return (CRYPTO_ARGUMENTS_BAD);
@@ -238,8 +273,7 @@ ctr_mode_contiguous_blocks(ctr_ctx_t *ctx, char *in, size_t in_length,
 
 int
 ctr_init_ctx(ctr_ctx_t *ctr_ctx, ulong_t count, uint8_t *cb,
-    int (*cipher)(const void *ks, const uint8_t *pt, uint8_t *ct),
-    void (*copy_block)(uint8_t *, uint8_t *))
+    void (*copy_block)(const uint8_t *, uint8_t *))
 {
 	uint64_t upper_mask = 0;
 	uint64_t lower_mask = 0;

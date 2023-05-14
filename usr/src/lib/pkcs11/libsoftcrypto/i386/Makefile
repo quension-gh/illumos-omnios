@@ -21,6 +21,7 @@
 
 #
 # Copyright (c) 2008, 2010, Oracle and/or its affiliates. All rights reserved.
+# Copyright 2014 by Saso Kiselkov. All rights reserved.
 #
 # Copyright (c) 2018, Joyent, Inc.
 
@@ -34,6 +35,7 @@ include		$(SRC)/lib/Makefile.lib
 CERRWARN +=	-_gcc=-Wno-type-limits
 CERRWARN +=	-_gcc=-Wno-parentheses
 CERRWARN +=	$(CNOWARN_UNINIT)
+C99MODE =	$(C99_ENABLE)
 
 # not linted
 SMATCH=off

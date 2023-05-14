@@ -23,6 +23,7 @@
 # Copyright (c) 2008, 2010, Oracle and/or its affiliates. All rights reserved.
 # Copyright 2017 Jason King
 # Copyright (c) 2019, Joyent, Inc.
+# Copyright 2014 by Saso Kiselkov. All rights reserved.
 #
 
 LIBRARY =	libsoftcrypto.a
@@ -41,6 +42,7 @@ include		$(SRC)/lib/Makefile.lib.64
 CERRWARN +=	-_gcc=-Wno-type-limits
 CERRWARN +=	-_gcc=-Wno-parentheses
 CERRWARN +=	$(CNOWARN_UNINIT)
+C99MODE =	$(C99_ENABLE)
 
 # not linted
 SMATCH=off
